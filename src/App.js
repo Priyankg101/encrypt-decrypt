@@ -98,7 +98,7 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Avegen Assessment</h2>
+      <a href = 'https://github.com/Priyankg101/encrypt-decrypt' rel="noreferrer" target="_blank"><h2>Avegen Assessment</h2></a>
       <h4>{ `${mode}r`}</h4>
       <button className={`${(mode === 'Encode')? 'enc': 'dec'}`} onClick={handleMode}>Toggle</button>
       <input required type='text' value={ text } placeholder={mode} onChange={handleStringChange}></input>
@@ -108,7 +108,10 @@ function App() {
       <p style={{color:'gray'}}>Underscores Represent Spaces</p>
       <p className='result'>{result}</p>
       <h4>{`${mode}r`} Explaination</h4>
-      { (mode === 'Encode')? <Encoding/>: <Decoding/>}
+      {(mode === 'Encode') ? <Encoding /> : <Decoding />}
+      <div className="footer">
+        <p>© 2023 Avegen FullStack Developer Assessment</p>
+      </div>
     </div>
   );
 }
