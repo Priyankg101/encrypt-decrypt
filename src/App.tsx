@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import './App.css';
 import Decoding from './Decoding'
 import Encoding from './Encoding';
@@ -22,9 +22,11 @@ function App() {
   }
   function encodeString(decodedText: string, rows: number)
   {
+    //rows = Number(rows);
     if(rows === 1)  return decodedText;
     let len:number = decodedText.length;
     let res = "";
+
     if ((rows + 1) >= len) {
       res = "Please Reduce M ";
       return res;
@@ -91,11 +93,11 @@ function App() {
       }
       return res;
   }
-  function handleStringChange(event: any) {
+  function handleStringChange(event: ChangeEvent<HTMLInputElement>) {
     setText(event.target.value);
   }
-  function handleMChange(event: any) {
-    let m = event.target.value;
+  function handleMChange(event: ChangeEvent<HTMLInputElement>) {
+    let m = parseInt(event.target.value);
     setM(m);
   }
   function handleSubmit() {
