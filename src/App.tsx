@@ -25,8 +25,8 @@ function App() {
     if(rows === 1)  return decodedText;
     let len:number = decodedText.length;
     let res = "";
-    if ((2 + 1) >= len) {
-      res = "Please Reduce M " + rows.toString() + " " + len.toString();
+    if ((rows + 1) >= len) {
+      res = "Please Reduce M ";
       return res;
     }
     
