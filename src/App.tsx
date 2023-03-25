@@ -1,11 +1,12 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Decoding from './Decoding'
 import Encoding from './Encoding';
+import React from 'react';
 function App() {
-  const [mode, setMode] = useState('Decode');
-  const [text, setText] = useState('GSRE___E__K___EFGS___KOE');
-  const [M, setM] = useState(4);
+  const [mode, setMode] = useState('Encode');
+  const [text, setText] = useState('BLA BLA');
+  const [M, setM] = useState(3);
   const [result, setResult] = useState('');  
 
 
@@ -19,22 +20,26 @@ function App() {
     setMode('Encode');
   }
   }
-  function encodeString(decodedText, rows)
+  function encodeString(decodedText: string, rows: number)
   {
-    let len = decodedText.length;
+    if(rows === 1)  return decodedText;
+    let len:number = decodedText.length;
     let res = "";
-    if (parseInt(rows) + 1 >= len) {
-      res = "Please Reduce M";
+    if ((2 + 1) >= len) {
+      res = "Please Reduce M " + rows.toString() + " " + len.toString();
       return res;
     }
-    let cols = Math.ceil(len / rows);
-    console.log(rows,cols);
-    const mat = [];
-    //GEEKS
+    
+    let cols = Math.ceil(len / rows); //3
+    
+    
+    console.log(rows,cols);//3,3
+    let mat: string[][] = [];
+    //BLA BLA
     // [
-    //   [G _ ]
-    //   [_ E ]
-    //   [_ _ ]
+    //   [B  _   L]
+    //   [_ L  B]
+    //   [_ _  A]
     //   [_ _ ]
     // ]
     for (let i = 0; i < rows; i++){
@@ -48,15 +53,19 @@ function App() {
     let j = 0;
     while (index < len) {
       mat[i][j] = decodedText[index];
-      if (i < rows && i!==rows-1) {
+      if (i < rows && i!==rows-1 && j<cols && j!==cols-1) {
         i++;
         j++;
       }
-      else {
+      else{
         j = j - i +1;
         i = 0;
       }
-      index++
+      index++;
+      if (index<len && (i >= rows || j >= cols)) {
+        return 'Invalid M';
+      }
+      
     }
     for (const row of mat) {
       for (let c of row) {
@@ -68,7 +77,7 @@ function App() {
     return res;  
   }
 
-  function decodeString(encodedText, rows) {
+  function decodeString(encodedText: string, rows: number) {
       let len = encodedText.length;
       encodedText = encodedText.replace(/_/g, ' ');
       let cols = Math.floor(len / rows);
@@ -82,10 +91,10 @@ function App() {
       }
       return res;
   }
-  function handleStringChange(event) {
+  function handleStringChange(event: any) {
     setText(event.target.value);
   }
-  function handleMChange(event) {
+  function handleMChange(event: any) {
     let m = event.target.value;
     setM(m);
   }
